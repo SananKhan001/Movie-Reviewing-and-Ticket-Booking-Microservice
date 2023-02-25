@@ -31,7 +31,7 @@ public class Review {
 
     @ManyToOne
     @JoinColumn(name = "movie_id",nullable = false)
-    @JsonIgnore
+    @JsonIgnoreProperties("reviews")
     private Movie movie;
 
     @CreationTimestamp

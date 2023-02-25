@@ -1,5 +1,7 @@
 package com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -27,6 +29,7 @@ public class Movie {
     // a single entity which is average of all reviews for a movie
     private Double rating;
 
-    @OneToMany
+    @OneToMany(mappedBy = "movie")
+    @JsonIgnoreProperties("movie")
     private List<Review> reviews;
 }
