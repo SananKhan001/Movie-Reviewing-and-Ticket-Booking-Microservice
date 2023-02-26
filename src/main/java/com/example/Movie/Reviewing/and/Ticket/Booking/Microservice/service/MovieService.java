@@ -49,13 +49,13 @@ public class MovieService {
 
     }
 
-    public List<MovieResponse> findMovieByGenre(String genre, int top) throws GenreNotFoundException, NoMatchFoundException {
+    public List<MovieResponse> findMovieByGenre(String genre, int top) throws NoMatchFoundException, GenreNotFoundException {
 
-        if(Arrays.stream(Genre.values()).noneMatch(g -> g.toString().equals(genre))) {
-            throw new GenreNotFoundException("Given Genre is not available");
+        if (Arrays.stream(Genre.values()).noneMatch(g -> g.toString().equals(genre))){
+            throw new GenreNotFoundException("Given genre is not present");
         }
 
-        List<Movie> movies = movieRepository.findByGenre(genre);
+        List<Movie> movies = movieRepository.findByGenre(Genre.valueOf(genre));
 
         if(movies == null || movies.isEmpty()){
             throw new NoMatchFoundException("There is not any movie matching with given Genre");
@@ -67,7 +67,7 @@ public class MovieService {
                 .map(Movie::to).collect(Collectors.toList());
 
         if(movieResponses.size() > top){
-            return movieResponses.subList(0,top-1);
+            return movieResponses.subList(0,top);
         }
 
         return movieResponses;

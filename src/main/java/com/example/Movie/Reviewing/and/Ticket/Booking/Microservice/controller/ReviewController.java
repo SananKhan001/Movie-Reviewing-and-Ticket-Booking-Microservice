@@ -4,6 +4,7 @@ import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.exception.IdN
 import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.exception.RatingLimitExceededException;
 import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.model.Review;
 import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.request.ReviewCreateRequest;
+import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.response.ReviewResponse;
 import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,7 @@ public class ReviewController {
 
     // localhost:8080/review/find
     @GetMapping("/find")
-    public Optional<Review> getReview(@RequestParam("id") Long reviewId) throws IdNotFoundException {
+    public ReviewResponse getReview(@RequestParam("id") Long reviewId) throws IdNotFoundException {
         return reviewService.getReview(reviewId);
     }
 

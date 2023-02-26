@@ -6,6 +6,7 @@ import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.model.Movie;
 import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.model.Review;
 import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.repository.ReviewRepository;
 import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.request.ReviewCreateRequest;
+import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.response.ReviewResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -59,13 +60,13 @@ public class ReviewService {
         return sum/totalReviews;
     }
 
-    public Optional<Review> getReview(Long reviewId) throws IdNotFoundException {
+    public ReviewResponse getReview(Long reviewId) throws IdNotFoundException {
         Optional<Review> review = reviewRepository.findById(reviewId);
 
         if(review == null || review.isEmpty()){
             throw new IdNotFoundException("Given Id is not found");
         }
 
-        return review;
+        return review.get().to();
     }
 }
