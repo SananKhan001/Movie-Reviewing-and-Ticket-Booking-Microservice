@@ -1,6 +1,7 @@
 package com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.service;
 
 import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.exception.IdNotFoundException;
+import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.exception.RatingLimitExceededException;
 import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.model.Movie;
 import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.model.Review;
 import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.repository.ReviewRepository;
@@ -21,7 +22,11 @@ public class ReviewService {
     @Autowired
     MovieService movieService;
 
-    public void addReview(ReviewCreateRequest reviewCreateRequest) throws IdNotFoundException {
+    public void addReview(ReviewCreateRequest reviewCreateRequest) throws IdNotFoundException, RatingLimitExceededException {
+
+        if(reviewCreateRequest.getRating() > 5){
+            throw new RatingLimitExceededException("Keep the rating between 1 to 5");
+        }
 
         // Checking if movie is present
         Optional<Movie> movie = movieService.findById(reviewCreateRequest.getMovieId());

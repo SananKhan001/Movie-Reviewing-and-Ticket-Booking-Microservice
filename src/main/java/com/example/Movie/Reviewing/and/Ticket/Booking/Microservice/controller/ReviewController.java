@@ -1,6 +1,7 @@
 package com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.controller;
 
 import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.exception.IdNotFoundException;
+import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.exception.RatingLimitExceededException;
 import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.model.Review;
 import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.request.ReviewCreateRequest;
 import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.service.ReviewService;
@@ -19,7 +20,7 @@ public class ReviewController {
 
     // localhost:8080/review/add
     @PostMapping("/add")
-    public void addReview(@RequestBody @Valid ReviewCreateRequest reviewCreateRequest) throws IdNotFoundException {
+    public void addReview(@RequestBody @Valid ReviewCreateRequest reviewCreateRequest) throws IdNotFoundException, RatingLimitExceededException {
         reviewService.addReview(reviewCreateRequest);
     }
 
