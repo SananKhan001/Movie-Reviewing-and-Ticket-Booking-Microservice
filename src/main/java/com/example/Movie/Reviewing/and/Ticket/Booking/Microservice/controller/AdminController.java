@@ -4,6 +4,7 @@ import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.request.Movie
 import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.response.MovieResponse;
 import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,7 +23,7 @@ public class AdminController {
     // localhost:8080/admin/movie/add
     @PostMapping("/movie/add")
     public ResponseEntity<MovieResponse> addMovie(@RequestBody @Valid MovieCreateRequest movieCreateRequest){
-
+        return new ResponseEntity<>(adminService.addMovie(movieCreateRequest), HttpStatus.CREATED);
     }
 
 }

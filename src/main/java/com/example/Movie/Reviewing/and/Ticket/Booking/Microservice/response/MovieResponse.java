@@ -1,7 +1,6 @@
 package com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.response;
 
 import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.model.Genre;
-import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.model.Review;
 import lombok.*;
 
 import java.util.List;

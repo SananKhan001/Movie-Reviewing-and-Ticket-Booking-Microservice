@@ -1,5 +1,6 @@
 package com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.model;
 
+import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.response.ReviewResponse;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
@@ -9,6 +10,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -40,4 +43,17 @@ public class Review {
     @UpdateTimestamp
     private Date updatedDate;
 
+    public ReviewResponse to(){
+        return ReviewResponse.builder()
+                .movieReview(this.movieReview)
+                .rating(this.rating)
+                .build();
+    }
+
+    public static List<ReviewResponse> to(List<Review> reviews){
+        return reviews.stream()
+                .map(x -> x.to())
+                .collect(Collectors
+                        .toList());
+    }
 }
