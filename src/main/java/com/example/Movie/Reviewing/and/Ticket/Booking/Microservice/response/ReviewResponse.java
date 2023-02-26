@@ -16,4 +16,6 @@ public class ReviewResponse {
 
     private Double rating;
 
+    private MovieResponse movieResponse;
+
 }
