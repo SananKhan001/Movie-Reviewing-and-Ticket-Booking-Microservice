@@ -20,11 +20,10 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @Builder
 @ToString
-@Table(name = "movie_table")
+@Table(name = "review_table")
 public class Review {
 
     @Id
-    @Column(name = "id",nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
@@ -33,7 +32,7 @@ public class Review {
     private double rating; // rating dedicated to each review.
 
     @ManyToOne
-    @JoinColumn(name = "movie_id",nullable = false)
+    @JoinColumn(name = "movie_id")
     @JsonIgnoreProperties("reviews")
     private Movie movie;
 
@@ -51,6 +50,9 @@ public class Review {
     }
 
     public static List<ReviewResponse> to(List<Review> reviews){
+
+        if(reviews == null) return null;
+
         return reviews.stream()
                 .map(x -> x.to())
                 .collect(Collectors

@@ -1,5 +1,8 @@
 package com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.controller;
 
+import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.exception.GenreNotFoundException;
+import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.exception.NoMatchFoundException;
+import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.exception.TitleNotFoundException;
 import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.response.MovieResponse;
 import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +22,17 @@ public class MovieController {
 
     // localhost:8080/movie/title
     @GetMapping("/title")
-    public MovieResponse findMovie(@RequestParam("title") String title){
+    public MovieResponse findMovie(@RequestParam("title") String title) throws TitleNotFoundException {
+
+        return movieService.findMovie(title);
 
     }
 
     // localhost:8080/movie/genre
     @GetMapping("/genre")
-    public List<MovieResponse> findMovieByGenre(@RequestParam("genre") String genre,@RequestParam("top") int top){
+    public List<MovieResponse> findMovieByGenre(@RequestParam("genre") String genre,@RequestParam("top") int top) throws GenreNotFoundException, NoMatchFoundException {
+
+        return movieService.findMovieByGenre(genre,top);
 
     }
 

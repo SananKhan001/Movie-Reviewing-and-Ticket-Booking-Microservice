@@ -14,11 +14,10 @@ import javax.validation.constraints.Positive;
 @NoArgsConstructor
 public class MovieCreateRequest {
 
-    @NotNull(message = "Given Title of Movie is NULL")
+
     @NotBlank(message = "Given Title of Movie is Blank")
     private String title;
 
-    @NotBlank(message = "Given genre is blank")
     @NotNull(message = "Given genre is NULL")
     private Genre genre;
 

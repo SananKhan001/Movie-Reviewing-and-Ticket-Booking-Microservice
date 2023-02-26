@@ -19,7 +19,6 @@ import java.util.stream.Collectors;
 @Builder
 public class Movie {
     @Id
-    @Column(name = "id",nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
