@@ -24,6 +24,7 @@ public class MovieCreateRequest {
     public Movie to(){
         return Movie.builder()
                 .genre(this.genre)
-                .title(this.title).build();
+                .title(this.title)
+                .rating(0.0).build();
     }
 }
