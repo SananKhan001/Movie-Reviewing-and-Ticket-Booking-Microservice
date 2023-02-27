@@ -1,13 +1,13 @@
 package com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.model;
 
 import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.response.MovieResponse;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
+
 import javax.persistence.*;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @Entity
 @Table(name = "movie_table")
@@ -42,4 +42,5 @@ public class Movie {
                 .title(this.title)
                 .build();
     }
+
 }
