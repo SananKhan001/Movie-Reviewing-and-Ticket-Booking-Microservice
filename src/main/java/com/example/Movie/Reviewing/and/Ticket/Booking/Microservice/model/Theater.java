@@ -2,6 +2,7 @@ package com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.model;
 
 import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.response.TheaterResponse;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -31,11 +32,11 @@ public class Theater {
     private String address;
 
     @OneToMany(mappedBy = "theater")
-    @JsonIgnore
+    @JsonIgnoreProperties("theater")
     private List<Show> shows;
 
     @OneToMany(mappedBy = "theater")
-    @JsonIgnore
+    @JsonIgnoreProperties("theater")
     private List<TheaterSeats> seats;
 
     public TheaterResponse to() {

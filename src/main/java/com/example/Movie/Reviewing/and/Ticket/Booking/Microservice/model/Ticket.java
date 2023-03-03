@@ -1,6 +1,7 @@
 package com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -33,7 +34,8 @@ public class Ticket {
     private Date bookedAt;
 
     @ManyToOne
-    @JsonIgnore
+    @JoinColumn
+    @JsonIgnoreProperties("tickets")
     private Show show;
 
     @OneToMany(mappedBy = "ticket")

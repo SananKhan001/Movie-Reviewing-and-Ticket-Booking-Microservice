@@ -1,6 +1,7 @@
 package com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.model;
 
 import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.response.MovieResponse;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.springframework.validation.annotation.Validated;
@@ -23,6 +24,7 @@ public class Movie {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(nullable = false)
     private String title;
 
     @Enumerated(EnumType.STRING)
@@ -34,6 +36,12 @@ public class Movie {
     @OneToMany(mappedBy = "movie")
     @JsonIgnoreProperties("movie")
     private List<Review> reviews;
+
+    @OneToMany(mappedBy = "movie")
+    @JsonIgnore
+    private List<Show> shows;
+
+
 
     public MovieResponse to(){
         return MovieResponse.builder()

@@ -32,17 +32,20 @@ public class TheaterService {
 
         Theater theater = theaterCreateRequest.to();
 
-        getTheaterSeats(theater);
-
         theater = theaterRepository.save(theater);
 
-        LOGGER.info("Added new user --> {}",theater);
+        //theater.setSeats(getTheaterSeats(theater));
+        getTheaterSeats(theater);
+
+        //theater = theaterRepository.save(theater);
+
+        //LOGGER.info("Added new user --> {}",theater);
 
         return theater.to();
 
     }
 
-    private void getTheaterSeats(Theater theater) {
+    private List<TheaterSeats> getTheaterSeats(Theater theater) {
 
         List<TheaterSeats> seats = new ArrayList<>();
 
@@ -58,7 +61,7 @@ public class TheaterService {
         seats.add(getTheaterSeat("2D", SeatType.RECLINER, theater));
         seats.add(getTheaterSeat("2E", SeatType.RECLINER, theater));
 
-        theaterSeatsRepository.saveAll(seats);
+        return theaterSeatsRepository.saveAll(seats);
 
     }
 

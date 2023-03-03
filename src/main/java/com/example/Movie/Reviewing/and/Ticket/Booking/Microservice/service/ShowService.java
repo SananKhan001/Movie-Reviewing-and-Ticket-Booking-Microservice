@@ -8,6 +8,8 @@ import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.repository.Sh
 import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.repository.TheaterRepository;
 import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.request.ShowCreateRequest;
 import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.response.ShowResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class ShowService {
+
+    private static Logger LOGGER = LoggerFactory.getLogger(ShowService.class);
     @Autowired
     private  MovieRepository movieRepository;
 
@@ -41,7 +45,7 @@ public class ShowService {
         }
 
         Optional<Theater> optionalTheater = theaterRepository.findById(showCreateRequest.getTheaterId());
-        if(optionalMovie.isEmpty()){
+        if(optionalTheater.isEmpty()){
             throw new IdNotFoundException("Given Id is not available");
         }
 
@@ -52,26 +56,30 @@ public class ShowService {
 
         show = showRepository.save(show);
 
-        generateShowSeats(show.getTheater().getSeats(),show);
+        //show.setSeats(generateShowSeats(show.getTheater().getSeats(),show));
 
-        show = showRepository.save(show);
+        generateShowSeats(show.getTheater().getSeats(), show);
+
+        //show = showRepository.save(show);
+
+        //LOGGER.info("No. of seats show have --> {}",show.getSeats().size());
 
         return show.to();
 
     }
 
-    private void generateShowSeats(List<TheaterSeats> theaterSeats, Show show) {
+    private List<ShowSeat> generateShowSeats(List<TheaterSeats> theaterSeats, Show show) {
 
         List<ShowSeat> showSeats = theaterSeats.stream()
                 .map(x ->
                     ShowSeat.builder()
                             .seatNumber(x.getSeatNumber())
                             .seatType(x.getSeatType())
-                            .rate(100)
                             .show(show)
+                            .rate(100)
                             .build()
                 ).collect(Collectors.toList());
 
-        showSeatRepository.saveAll(showSeats);
+        return showSeatRepository.saveAll(showSeats);
     }
 }

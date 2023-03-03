@@ -3,10 +3,12 @@ package com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.model;
 import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.response.ShowResponse;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -14,6 +16,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -32,7 +35,7 @@ public class Show {
     private Long id;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss[.SSS][.SS][.S]")
-    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @Column(name = "show_time", columnDefinition = "Time",nullable = false)
     private LocalDateTime showTime;
@@ -54,8 +57,12 @@ public class Show {
     private Theater theater;
 
     @OneToMany(mappedBy = "show")
-    @JsonIgnore
-    private List<ShowSeat> seats;
+    @JsonIgnoreProperties("show")
+    private List<ShowSeat> seats = new ArrayList<>();
+
+    @OneToMany(mappedBy = "show")
+    @JsonIgnoreProperties("show")
+    private List<Ticket> tickets;
 
     public ShowResponse to(){
 

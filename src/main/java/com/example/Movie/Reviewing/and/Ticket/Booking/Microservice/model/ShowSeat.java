@@ -2,8 +2,11 @@ package com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.model;
 
 import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.response.ShowSeatsResponse;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -21,6 +24,7 @@ import java.util.stream.Collectors;
 @Table(name = "show_seats")
 public class ShowSeat {
 
+    private static Logger LOGGER = LoggerFactory.getLogger(ShowSeat.class);
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -43,11 +47,13 @@ public class ShowSeat {
     private Date bookedAt;
 
     @ManyToOne
-    @JsonIgnore
+    @JoinColumn
+    @JsonIgnoreProperties("seats")
     private Show show;
 
     @ManyToOne
-    @JsonIgnore
+    @JoinColumn
+    @JsonIgnoreProperties("seats")
     private Ticket ticket;
 
     public static ShowSeatsResponse to(ShowSeat showSeat){
@@ -64,11 +70,12 @@ public class ShowSeat {
     }
     public static List<ShowSeatsResponse> to(List<ShowSeat> seats) {
 
-        if(!seats.isEmpty()){
-            return seats.stream().map(x -> to(x)).collect(Collectors.toList());
+        if(seats == null || seats.isEmpty()){
+            LOGGER.info("Empty Condition unfortunately!!!");
+            return new ArrayList<>();
         }
 
-        return new ArrayList<>();
+        return seats.stream().map(x -> to(x)).collect(Collectors.toList());
 
     }
 }

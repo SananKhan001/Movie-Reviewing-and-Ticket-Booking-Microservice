@@ -1,6 +1,7 @@
 package com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -27,7 +28,8 @@ public class TheaterSeats {
     private SeatType seatType;
 
     @ManyToOne
-    @JsonIgnore
+    @JoinColumn
+    @JsonIgnoreProperties("seats")
     private Theater theater;
 
 }
