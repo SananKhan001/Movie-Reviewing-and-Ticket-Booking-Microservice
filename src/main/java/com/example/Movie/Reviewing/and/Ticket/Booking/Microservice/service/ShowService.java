@@ -12,7 +12,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -81,5 +83,19 @@ public class ShowService {
                 ).collect(Collectors.toList());
 
         return showSeatRepository.saveAll(showSeats);
+    }
+
+    public List<ShowResponse> searchShows(String movieName, String cityName, String theaterName) {
+
+        if(!StringUtils.hasText(cityName)){
+            return new ArrayList<>();
+        }
+
+        List<Show> shows = new ArrayList<>();
+        if(StringUtils.hasText(movieName)){
+            shows = showRepository.findByMovieNameAndCity(movieName,cityName);
+        }
+
+        return shows.stream().map(x -> x.to()).collect(Collectors.toList());
     }
 }

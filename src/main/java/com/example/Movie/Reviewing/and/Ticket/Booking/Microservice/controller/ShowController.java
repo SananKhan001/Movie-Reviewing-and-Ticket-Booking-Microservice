@@ -21,4 +21,16 @@ public class ShowController {
         return new ResponseEntity(showService.addShow(showCreateRequest), HttpStatus.OK);
     }
 
+    // localhost:8080/show/search
+    @GetMapping("/search")
+    public ResponseEntity search(
+            @RequestParam(name = "city",required = true) String cityName,
+            @RequestParam(name = "movieName",required = false) String movieName,
+            @RequestParam(name = "theaterName",required = false) String theaterName){
+
+        return new ResponseEntity(showService.searchShows(movieName,cityName,theaterName),HttpStatus.OK);
+
+    }
+
+
 }
