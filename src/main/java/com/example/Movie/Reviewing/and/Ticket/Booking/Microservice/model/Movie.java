@@ -19,8 +19,8 @@ import java.util.List;
 @Builder
 public class Movie {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
     private String title;
 
