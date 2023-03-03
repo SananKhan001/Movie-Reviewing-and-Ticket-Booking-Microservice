@@ -1,5 +1,6 @@
 package com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.model;
 
+import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.response.ShowResponse;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -55,5 +56,19 @@ public class Show {
     @OneToMany(mappedBy = "show")
     @JsonIgnore
     private List<ShowSeat> seats;
+
+    public ShowResponse to(){
+
+        return ShowResponse.builder()
+                .id(this.id)
+                .showTime(this.showTime)
+                .movieId(this.movie.getId())
+                .theaterId(this.theater.getId())
+                .seats(ShowSeat.to(this.getSeats()))
+                .createdAt(this.createdAt)
+                .updatedAt(this.updatedAt)
+                .build();
+
+    }
 
 }

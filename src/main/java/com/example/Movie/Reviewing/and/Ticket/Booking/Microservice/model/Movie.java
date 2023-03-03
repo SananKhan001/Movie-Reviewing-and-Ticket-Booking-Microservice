@@ -3,6 +3,7 @@ package com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.model;
 import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.response.MovieResponse;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
+import org.springframework.validation.annotation.Validated;
 
 
 import javax.persistence.*;

@@ -81,4 +81,14 @@ public class MovieService {
         }
         return movie;
     }
+
+    public MovieResponse getMovie(long id) throws IdNotFoundException {
+        Optional<Movie> optionalMovie = movieRepository.findById(id);
+
+        if(optionalMovie.isEmpty()){
+            throw new IdNotFoundException("Given id is not available");
+        }
+
+        return optionalMovie.get().to();
+    }
 }

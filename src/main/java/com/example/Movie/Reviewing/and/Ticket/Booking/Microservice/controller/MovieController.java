@@ -1,11 +1,14 @@
 package com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.controller;
 
 import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.exception.GenreNotFoundException;
+import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.exception.IdNotFoundException;
 import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.exception.NoMatchFoundException;
 import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.exception.TitleNotFoundException;
 import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.response.MovieResponse;
 import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,5 +38,13 @@ public class MovieController {
         return movieService.findMovieByGenre(genre,top);
 
     }
+
+    // localhost:8080/movie/id
+    @GetMapping("/id")
+    public ResponseEntity getMovieById(@RequestParam("id") long id) throws IdNotFoundException {
+        return new ResponseEntity<>(movieService.getMovie(id), HttpStatus.OK);
+    }
+
+
 
 }

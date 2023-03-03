@@ -1,5 +1,6 @@
 package com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.model;
 
+import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.response.TheaterResponse;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
@@ -33,4 +34,18 @@ public class Theater {
     @JsonIgnore
     private List<Show> shows;
 
+    @OneToMany(mappedBy = "theater")
+    @JsonIgnore
+    private List<TheaterSeats> seats;
+
+    public TheaterResponse to() {
+
+        return TheaterResponse.builder()
+                .id(this.id)
+                .address(this.address)
+                .city(this.city)
+                .name(this.name)
+                .build();
+
+    }
 }
