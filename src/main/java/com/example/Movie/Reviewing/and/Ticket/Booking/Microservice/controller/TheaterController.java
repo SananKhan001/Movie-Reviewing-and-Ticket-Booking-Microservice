@@ -18,12 +18,6 @@ public class TheaterController {
     @Autowired
     private TheaterService theaterService;
 
-    // localhost:8080/theater/add
-    @PostMapping("/add")
-    public ResponseEntity addUser(@RequestBody @Valid TheaterCreateRequest theaterCreateRequest){
-        return new ResponseEntity(theaterService.addTheater(theaterCreateRequest), HttpStatus.OK);
-    }
-
     // localhost:8080/theater/id
     @GetMapping("/id")
     public ResponseEntity getUser(@RequestParam("id") @Min(value = 1, message = "Theater Id cannot be -ve") long id) throws IdNotFoundException {

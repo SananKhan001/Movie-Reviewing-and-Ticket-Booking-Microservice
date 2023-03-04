@@ -8,18 +8,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/show")
 public class ShowController {
 
     @Autowired
     private ShowService showService;
-
-    // localhost:8080/show/add
-    @PostMapping("/add")
-    public ResponseEntity addShow(@RequestBody ShowCreateRequest showCreateRequest) throws IdNotFoundException {
-        return new ResponseEntity(showService.addShow(showCreateRequest), HttpStatus.OK);
-    }
 
     // localhost:8080/show/search
     @GetMapping("/search")

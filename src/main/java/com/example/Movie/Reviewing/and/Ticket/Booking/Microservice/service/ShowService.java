@@ -95,7 +95,19 @@ public class ShowService {
         if(StringUtils.hasText(movieName)){
             shows = showRepository.findByMovieNameAndCity(movieName,cityName);
         }
+        else if(StringUtils.hasText(theaterName)){
+            shows = showRepository.findByTheaterAndCity(theaterName,cityName);
+        }
+        else{
+            shows = showRepository.findByCity(cityName);
+        }
 
-        return shows.stream().map(x -> x.to()).collect(Collectors.toList());
+        if(shows.isEmpty()){
+            return new ArrayList<>();
+        }
+        else{
+            return shows.stream().map(x -> x.to()).collect(Collectors.toList());
+        }
+
     }
 }

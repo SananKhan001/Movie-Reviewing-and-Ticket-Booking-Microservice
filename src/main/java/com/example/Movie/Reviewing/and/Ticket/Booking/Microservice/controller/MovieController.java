@@ -45,6 +45,4 @@ public class MovieController {
         return new ResponseEntity<>(movieService.getMovie(id), HttpStatus.OK);
     }
 
-
-
 }

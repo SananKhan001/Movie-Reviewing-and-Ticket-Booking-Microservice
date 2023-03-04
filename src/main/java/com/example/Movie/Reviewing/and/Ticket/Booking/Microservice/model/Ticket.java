@@ -39,7 +39,12 @@ public class Ticket {
     private Show show;
 
     @OneToMany(mappedBy = "ticket")
-    @JsonIgnore
+    @JsonIgnoreProperties("ticket")
     private List<ShowSeat> seats;
+
+    @ManyToOne
+    @JoinColumn
+    @JsonIgnoreProperties("ticketList")
+    private Customer customer;
 
 }
