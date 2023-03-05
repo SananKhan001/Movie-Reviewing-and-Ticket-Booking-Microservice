@@ -68,7 +68,7 @@ public class Show {
 
         return ShowResponse.builder()
                 .id(this.id)
-                .showTime(this.showTime)
+                .showTime(this.getShowTime())
                 .movieId(this.movie.getId())
                 .theaterId(this.theater.getId())
                 .seats(ShowSeat.to(this.getSeats()))

@@ -1,22 +1,23 @@
 package com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.model;
 
+import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.response.TicketResponse;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
-
+@Builder
 @Getter
 @Setter
 @ToString
 @Entity
 @EntityListeners(value = {AuditingEntityListener.class})
+@NoArgsConstructor
+@AllArgsConstructor
 public class Ticket {
 
     @Id
@@ -46,5 +47,16 @@ public class Ticket {
     @JoinColumn
     @JsonIgnoreProperties("ticketList")
     private Customer customer;
+
+    public TicketResponse to(){
+        return TicketResponse.builder()
+                .id(this.id)
+                .allottedSeats(this.allotedSeats)
+                .amount(this.amount)
+                .bookedAt(this.bookedAt)
+                .movieName(this.show.getMovie().getTitle())
+                .showTime(this.show.getShowTime())
+                .build();
+    }
 
 }

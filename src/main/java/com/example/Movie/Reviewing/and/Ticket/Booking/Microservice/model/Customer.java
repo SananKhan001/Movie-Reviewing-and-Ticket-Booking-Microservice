@@ -29,8 +29,8 @@ public class Customer {
     @Column(name = "email",nullable = false)
     private String email;
 
-    @OneToMany(mappedBy = "customer")
-    @JsonIgnoreProperties("customer")
+    @OneToMany(mappedBy = "customer",fetch = FetchType.EAGER)
+    // @JsonIgnoreProperties("customer")
     private List<Ticket> ticketList;
 
     @OneToOne

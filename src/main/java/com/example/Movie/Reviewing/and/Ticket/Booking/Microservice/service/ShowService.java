@@ -35,9 +35,6 @@ public class ShowService {
     @Autowired
     private ShowRepository showRepository;
 
-    public ShowService(MovieRepository movieRepository) {
-        this.movieRepository = movieRepository;
-    }
 
     public ShowResponse addShow(ShowCreateRequest showCreateRequest) throws IdNotFoundException {
 
