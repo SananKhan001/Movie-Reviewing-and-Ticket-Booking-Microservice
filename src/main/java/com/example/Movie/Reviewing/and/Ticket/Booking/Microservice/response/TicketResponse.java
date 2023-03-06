@@ -25,4 +25,8 @@ public class TicketResponse {
 
     private LocalDateTime showTime;
 
+    private String theaterName;
+
+    private String address;
+
 }

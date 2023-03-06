@@ -56,6 +56,8 @@ public class Ticket {
                 .bookedAt(this.bookedAt)
                 .movieName(this.show.getMovie().getTitle())
                 .showTime(this.show.getShowTime())
+                .theaterName(this.getShow().getTheater().getName())
+                .address(this.getShow().getTheater().getAddress())
                 .build();
     }
 

@@ -9,7 +9,12 @@ import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.repository.Ti
 import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.repository.UserRepository;
 import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.request.BookingCreateRequest;
 import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.response.TicketResponse;
+import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.KafkaHeaders;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -29,6 +34,12 @@ public class TicketService {
 
     @Autowired
     private CustomerRepository customerRepository;
+
+    @Autowired
+    NewTopic topic;
+
+    @Autowired
+    KafkaTemplate<String,TicketResponse> kafkaTemplate;
 
     public TicketResponse bookTicket(BookingCreateRequest bookingCreateRequest, Customer customer) throws IdNotFoundException, NoMatchFoundException {
 
@@ -76,13 +87,22 @@ public class TicketService {
 
         ticket = ticketRepository.save(ticket);
 
-        /*
+        TicketResponse ticketResponse = ticket.to();
 
-          Add GMail Notification logic here
+        // Notification Logic
+        NotificationMessage notificationMessage = NotificationMessage.builder()
+                .ticketResponse(ticketResponse)
+                .userResponse(customer.getMyUser().to(customer))
+                .build();
 
-        */
+        Message<NotificationMessage> message = MessageBuilder
+                .withPayload(notificationMessage)
+                .setHeader(KafkaHeaders.TOPIC,topic.name())
+                .build();
 
-        return ticket.to();
+        kafkaTemplate.send(message);
+
+        return ticketResponse;
 
     }
 
