@@ -26,7 +26,7 @@ public class Customer {
     @Column(name = "mobile",nullable = false)
     private String mobile;
 
-    @Column(name = "email",nullable = false)
+    @Column(name = "email",nullable = false,unique = true)
     private String email;
 
     @OneToMany(mappedBy = "customer",fetch = FetchType.EAGER)
