@@ -8,16 +8,14 @@ import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.repository.Sh
 import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.request.*;
 import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.response.MovieResponse;
 import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.response.ShowResponse;
-import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.service.AdminService;
-import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.service.MyUserDetailsService;
-import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.service.ShowService;
-import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.service.TheaterService;
+import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,6 +35,9 @@ public class AdminController {
     @Autowired
     private ShowService showService;
 
+    @Autowired
+    private TicketService ticketService;
+
     // localhost:8080/admin/movie/add
     @PostMapping("/movie/add")
     public ResponseEntity<MovieResponse> addMovie(@RequestBody @Valid MovieCreateRequest movieCreateRequest){
@@ -53,6 +54,12 @@ public class AdminController {
     @PostMapping("/theater/add")
     public ResponseEntity addUser(@RequestBody @Valid TheaterCreateRequest theaterCreateRequest){
         return new ResponseEntity(theaterService.addTheater(theaterCreateRequest), HttpStatus.OK);
+    }
+
+    // localhost:8080/admin/ticketId
+    @GetMapping("/ticketId")
+    public ResponseEntity getTicket(@RequestParam("id") @Min(value = 1,message = "Ticket Id cannot be -ve") long id){
+        return new ResponseEntity(ticketService.getTicket(id),HttpStatus.FOUND);
     }
 
 }

@@ -39,12 +39,6 @@ public class TicketController {
 
     }
 
-    // localhost:8080/ticket/id
-    @GetMapping("/id")
-    public ResponseEntity getTicket(@RequestParam("id") @Min(value = 1,message = "Ticket Id cannot be -ve") long id){
-        return new ResponseEntity(ticketService.getTicket(id),HttpStatus.FOUND);
-    }
-
     // localhost:8080/ticket/all
     @GetMapping("/all")
     public ResponseEntity getTicket() throws NoMatchFoundException {
