@@ -19,7 +19,7 @@ public class UserCacheRepository {
 
     public void set(User user){
         String key = getKey(user.getUsername());
-        redisTemplate.opsForValue().set(key,user,1,TimeUnit.MINUTES);
+        redisTemplate.opsForValue().set(key,user,10,TimeUnit.MINUTES);
     }
 
     public User get(String username){
