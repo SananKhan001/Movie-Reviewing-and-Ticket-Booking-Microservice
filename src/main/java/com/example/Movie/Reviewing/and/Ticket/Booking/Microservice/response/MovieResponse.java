@@ -15,6 +15,7 @@ public class MovieResponse {
     private Genre genre;
     private String title;
     private Double rating;
+    private Long numberOfReviews;
     private List<ReviewResponse> reviews;
 
 }

@@ -8,6 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 @Builder
@@ -18,7 +19,7 @@ import java.util.List;
 @EntityListeners(value = {AuditingEntityListener.class})
 @NoArgsConstructor
 @AllArgsConstructor
-public class Ticket {
+public class Ticket implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
@@ -16,7 +17,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class Theater {
+public class Theater implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

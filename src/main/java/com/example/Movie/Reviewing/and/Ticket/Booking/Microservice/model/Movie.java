@@ -8,6 +8,7 @@ import org.springframework.validation.annotation.Validated;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 
@@ -19,7 +20,7 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
-public class Movie {
+public class Movie implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -32,6 +33,8 @@ public class Movie {
 
     // a single entity which is average of all reviews for a movie
     private Double rating;
+
+    private Long numberOfReviews;
 
     @OneToMany(mappedBy = "movie")
     @JsonIgnoreProperties("movie")
@@ -49,6 +52,7 @@ public class Movie {
                 .rating(this.rating)
                 .reviews(Review.to(reviews))
                 .title(this.title)
+                .numberOfReviews(this.getNumberOfReviews())
                 .build();
     }
 

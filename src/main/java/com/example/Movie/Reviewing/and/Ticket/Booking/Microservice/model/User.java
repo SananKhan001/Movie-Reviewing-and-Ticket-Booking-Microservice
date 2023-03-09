@@ -4,11 +4,14 @@ import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.response.User
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.data.redis.core.RedisHash;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -22,7 +25,8 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class User implements UserDetails {
+@Cacheable
+public class User implements Serializable,UserDetails{
 
     private static final String AUTHORITY_DELIMITER = ":";
 

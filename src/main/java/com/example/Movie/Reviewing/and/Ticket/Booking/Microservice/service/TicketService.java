@@ -4,9 +4,9 @@ import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.exception.IdN
 import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.exception.NoMatchFoundException;
 import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.model.*;
 import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.repository.CustomerRepository;
+import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.repository.MyUserRepository;
 import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.repository.ShowRepository;
 import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.repository.TicketRepository;
-import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.repository.UserRepository;
 import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.request.BookingCreateRequest;
 import com.example.Movie.Reviewing.and.Ticket.Booking.Microservice.response.TicketResponse;
 import org.apache.kafka.clients.admin.NewTopic;
@@ -22,9 +22,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class TicketService {
-
-    @Autowired
-    private UserRepository userRepository;
 
     @Autowired
     private ShowRepository showRepository;

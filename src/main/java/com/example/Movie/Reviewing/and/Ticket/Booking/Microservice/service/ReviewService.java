@@ -33,8 +33,15 @@ public class ReviewService {
         Optional<Movie> movie = movieService.findById(reviewCreateRequest.getMovieId());
 
         // Finding previous review of movie to calculate rating
+        /*
+        // UnOptimised Code
         List<Review> reviewList = movie.get().getReviews();
         movie.get().setRating(calculateRating(reviewList,reviewCreateRequest.getRating()));
+        */
+
+        // Optimised Code
+        movie.get().setRating(calculateRating(movie.get().getRating(),movie.get().getNumberOfReviews(),reviewCreateRequest.getRating()));
+        movie.get().setNumberOfReviews(movie.get().getNumberOfReviews() + 1);
 
         // Creating a review and adding attaching movie with that
         Review review = reviewCreateRequest.to();
@@ -45,6 +52,8 @@ public class ReviewService {
         movieService.addMovie(movie.get());
     }
 
+    /*
+    // UnOptimised Code
     private double calculateRating(List<Review> prvReviewList, Double newRating) {
 
         Long totalReviews = Long.valueOf(prvReviewList.size() + 1);
@@ -59,8 +68,23 @@ public class ReviewService {
 
         return sum/totalReviews;
     }
+    */
+
+    // Optimised Code
+    private double calculateRating(Double prvAvgRating, Long numberOfReviews, Double newRating) {
+
+        Double prvTotalRating = prvAvgRating * numberOfReviews;
+
+        Double newTotalRating = Double.sum(prvTotalRating,newRating);
+
+        Double newAvgRating = newTotalRating/(Double.sum(numberOfReviews,1));
+
+        return newAvgRating;
+
+    }
 
     public ReviewResponse getReview(Long reviewId) throws IdNotFoundException {
+
         Optional<Review> review = reviewRepository.findById(reviewId);
 
         if(review == null || review.isEmpty()){
@@ -68,5 +92,6 @@ public class ReviewService {
         }
 
         return review.get().to();
+
     }
 }

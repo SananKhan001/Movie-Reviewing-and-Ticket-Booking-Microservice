@@ -37,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/theater/**").hasAnyAuthority(Authority.CUSTOMER.toString())
                 .antMatchers("/user/**").hasAnyAuthority(Authority.ADMIN.toString(),Authority.CUSTOMER.toString())
                 .antMatchers("/ticket/**").hasAuthority(Authority.CUSTOMER.toString())
-                .and().httpBasic();
+                .and().formLogin();
     }
 
 }
