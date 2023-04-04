@@ -103,6 +103,7 @@ public class ShowService {
             return new ArrayList<>();
         }
         else{
+            shows.stream().forEach(X -> LOGGER.info("Show Id : {},Show date : {}",X.getId(),X.getShowTime()));
             return shows.stream().map(x -> x.to()).collect(Collectors.toList());
         }
 

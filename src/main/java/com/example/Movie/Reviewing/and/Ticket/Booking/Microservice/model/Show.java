@@ -38,7 +38,7 @@ public class Show implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss[.SSS][.SS][.S]")
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    @Column(name = "show_time", columnDefinition = "Time",nullable = false)
+    @Column(name = "show_time", columnDefinition = "DATETIME",nullable = false)
     private LocalDateTime showTime;
 
     @CreationTimestamp

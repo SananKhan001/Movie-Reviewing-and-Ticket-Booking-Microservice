@@ -28,16 +28,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/admin/**").hasAuthority(Authority.ADMIN.toString())
                 .antMatchers("/signup/customer/**").permitAll()
-                .antMatchers("/signup/admin/**").hasAuthority(Authority.ADMIN.toString())
+                .antMatchers("/signup/admin/**").permitAll()
+                .antMatchers("/admin/**").hasAuthority(Authority.ADMIN.toString())
                 .antMatchers("/movie/**").hasAnyAuthority(Authority.CUSTOMER.toString())
                 .antMatchers("/review/**").hasAnyAuthority(Authority.CUSTOMER.toString())
                 .antMatchers("/show/**").hasAnyAuthority(Authority.CUSTOMER.toString())
                 .antMatchers("/theater/**").hasAnyAuthority(Authority.CUSTOMER.toString())
                 .antMatchers("/user/**").hasAnyAuthority(Authority.ADMIN.toString(),Authority.CUSTOMER.toString())
                 .antMatchers("/ticket/**").hasAuthority(Authority.CUSTOMER.toString())
-                .and().formLogin();
+                .and().httpBasic();
     }
 
 }
